@@ -51,7 +51,7 @@ a:hover {
 .navbar-color {
   background-color: rgb(63, 94, 251);
   font-family: 'Graduate', cursive;
-font-family: 'Roboto Slab', serif;;
+  font-family: 'Roboto Slab', serif;
 }
 
 @media screen and (min-width: 768px) {

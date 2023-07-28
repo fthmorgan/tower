@@ -55,6 +55,8 @@ footer {
   display: grid;
   place-content: center;
   height: 32px;
+  font-family: 'Graduate', cursive;
+  font-family: 'Roboto Slab', serif;
 
 }
 </style>
