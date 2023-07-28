@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-color px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <h1 class="nav-font">Tower</h1>
+        <h1 class="nav-font text-light">Tower</h1>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -49,7 +49,7 @@ a:hover {
 }
 
 .navbar-color {
-  background-color: rgb(113, 206, 163);
+  background-color: rgb(63, 94, 251);
   font-family: 'Graduate', cursive;
 font-family: 'Roboto Slab', serif;;
 }

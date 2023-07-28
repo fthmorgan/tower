@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div v-if="towerEvent" class="col-md-3 p-0">
+      <div v-if="towerEvent" class="col-md-3 pt-3">
         <div>
           <img :src="towerEvent.coverImg" class="img-fluid">
         </div>
@@ -9,7 +9,7 @@
           <h1 v-if="towerEvent.isCanceled == true">{{ towerEvent.name }} is Canceled</h1>
         </div>
         <div>
-          <button class="mt-3" @click="cancelTowerEvent()">Cancel Event</button>
+          <button :disabled="towerEvent.isCanceled == true" class="mt-3" @click="cancelTowerEvent()">Cancel Event</button>
         </div>
       </div>
     </div>

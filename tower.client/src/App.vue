@@ -45,11 +45,16 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+main {
+  background: rgb(63,94,251);
+background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(70,252,117,1) 100%);
+}
 
 footer {
-  background-color: rgb(113, 206, 163);
+  background-color: rgb(63, 94, 251);
   display: grid;
   place-content: center;
   height: 32px;
+
 }
 </style>
