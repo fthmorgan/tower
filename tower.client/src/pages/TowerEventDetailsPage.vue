@@ -14,6 +14,11 @@
         <button :disabled="towerEvent.isCanceled == true"  @click="attendTowerEvent()">Attend Event</button>
       </div>
     </div>
+    <div class="d-flex pt-3" v-for="t in tickets" :key="t.id">
+          <img class="ticket-img round mx-1" :src="t.profile?.picture">
+
+          <h1>{{ t.profile.name }}</h1>
+        </div>
   </div>
 </template>
 
@@ -64,6 +69,11 @@ watchEffect(() => {
 
     return {
       towerEvent: computed(() => AppState.activeTowerEvent),
+      tickets: computed(() => AppState.eventTickets),
+      account: computed(() => AppState.account),
+      isTicketHolder: computed(() => {
+        return AppState.eventTickets.find(t => t.accountId == AppState.account)
+      }),
 
     async attendTowerEvent() {
       try {
@@ -78,7 +88,7 @@ watchEffect(() => {
 
         await ticketsService.attendTowerEvent(ticketData)
 
-        AppState.activeTowerEvent.memberCount++
+        AppState.activeTowerEvent.ticketCount++
 
       } catch (error) {
         Pop.error(error.message)
@@ -107,5 +117,9 @@ watchEffect(() => {
 
 
 <style lang="scss" scoped>
+.ticket-img {
+  height: 10vh;
+  width: 10vh;
 
+}
 </style>
