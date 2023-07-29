@@ -11,6 +11,7 @@
         <div>
           <button :disabled="towerEvent.isCanceled == true" class="mt-3" @click="cancelTowerEvent()">Cancel Event</button>
         </div>
+        <button :disabled="towerEvent.isCanceled == true"  @click="attendTowerEvent()">Attend Event</button>
       </div>
     </div>
   </div>
@@ -21,15 +22,26 @@
 import { useRoute } from "vue-router";
 import Pop from "../utils/Pop.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
+import {commentsService} from '../services/CommentsService.js'
 import { computed, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 // import { computed, onMounted } from "vue";
 import { logger } from "../utils/Logger.js";
+import { ticketsService } from "../services/TicketsService.js";
 
 export default {
   setup(){
 
   const route = useRoute()
+
+  async function getCommentsByEventId() {
+  try {
+    const eventId = route.params.eventId
+    await commentsService.getCommentsByEventId(eventId)
+  } catch (error) {
+    Pop.error(error.message)
+  }
+}
 
 
 async function getTowerEventById(eventId) {
@@ -43,6 +55,7 @@ try {
 
 watchEffect(() => {
   getTowerEventById(route.params.eventId)
+  getCommentsByEventId()
 })
 
 // onMounted(() => {
@@ -51,6 +64,26 @@ watchEffect(() => {
 
     return {
       towerEvent: computed(() => AppState.activeTowerEvent),
+
+    async attendTowerEvent() {
+      try {
+        logger.log('attend event')
+
+        const activeTowerEvent = route.params.eventId
+
+        // const ticketData = {}
+
+        // ticketData.eventId = eventId
+        const ticketData = { eventId: activeTowerEvent }
+
+        await ticketsService.attendTowerEvent(ticketData)
+
+        AppState.activeTowerEvent.memberCount++
+
+      } catch (error) {
+        Pop.error(error.message)
+      }
+    },
 
     async cancelTowerEvent() {
         try {
