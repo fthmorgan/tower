@@ -19,6 +19,18 @@
     </template>
 </ModalComponent>
 
+<ModalComponent id="createCommentModal">
+
+    <template #header>
+      Create Comment
+    </template>
+
+    <template #body>
+      <CommentForm />
+    </template>
+
+  </ModalComponent>
+
 
 </template>
 
