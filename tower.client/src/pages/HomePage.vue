@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
 <div class="col-12 col-md-10 m-3">
-  <div class="bg-info d-flex justify-content-around p-3 rounded">
+  <div class="bg-info d-flex justify-content-around p-md-3 rounded">
 <button @click="filterBy = ''">All</button>
 <button @click="filterBy = 'concert'">Concert</button>
 <button @click="filterBy = 'convention'">Convention</button>

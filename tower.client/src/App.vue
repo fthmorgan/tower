@@ -60,6 +60,8 @@ export default {
 main {
   background: rgb(63,94,251);
 background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(70,252,117,1) 100%);
+font-family: 'Graduate', cursive;
+font-family: 'Roboto Slab', serif;
 }
 
 footer {

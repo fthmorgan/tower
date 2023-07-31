@@ -14,51 +14,57 @@
           </h1>
           <p>{{ towerEvent.description }}</p>
           <h4>{{ towerEvent.location }}</h4>
-          <h4>{{ towerEvent.capacity }}</h4>
+          <h4>Capacity: {{ towerEvent.capacity }}</h4>
+          <h4>{{ towerEvent.ticketCount }} Attendees</h4>
           <h5>{{ towerEvent.startDate.toLocaleDateString() }}</h5>
           <h6>{{ towerEvent.type }}</h6>
         </div>
         <div>
-          <button :disabled="towerEvent.isCanceled == true || towerEvent.creatorId != account.id" class="mt-3" @click="cancelTowerEvent()">Cancel Event</button>
+          <div>
+            <button :disabled="towerEvent.isCanceled == true || towerEvent.creatorId != account.id" class="m-1" @click="cancelTowerEvent()">Cancel Event</button>
+          </div>
+          <div class="d-flex">
+            <button class="m-1" :disabled="towerEvent.isCanceled == true || towerEvent.capacity == towerEvent.ticketCount"
+v-if="!isTicketHolder"
+            @click="attendTowerEvent()">Attend Event</button>
+            <button class="m-1" :disabled="towerEvent.isCanceled == true" v-if="isTicketHolder" @click="removeTicket()">
+              Unattend Event
+            </button>
+          </div>
+          <div>
+            <button class="m-1" data-bs-toggle="modal" data-bs-target="#createCommentModal">Comment</button>
+          </div>
         </div>
 
         <!-- t.accountId == account.id -->
-        <button :disabled="towerEvent.isCanceled == true || towerEvent.capacity == towerEvent.ticketCount" @click="attendTowerEvent()">Attend Event</button>
-        <button :disabled="towerEvent.isCanceled == true" @click="removeTicket()">
-          Unattend Event
-        </button>
-        <div>
-          <button data-bs-toggle="modal" data-bs-target="#createCommentModal">Comment</button>
-        </div>
       </div>
     </div>
     <div class="row" >
       <div class="col-6">
             <div class="pt-3" v-for="t in tickets" :key="t.id">
-              <img class="ticket-img round mx-1" :src="t.profile?.picture">
+              <img class="ticket-img rounded mx-1" :src="t.profile?.picture">
   
-              <h1>{{ t.profile.name }}</h1>
+              <h6>{{ t.profile.name }}</h6>
             </div>
       </div>
-      <div class="col-6">
-        <div>
-          <div class="row">
-            <div class="col-6">
-            </div>
-            <div class="col-10">
-              <div class="row">
-                <h1>Comments</h1>
-              </div>
-              <div  v-for="c in comments" :key="c.eventId">
-                <p>{{ c.body }}</p>
-                <button @click="removeComment()">Delete Comment</button>
+        <div class="col-6 comment-box mb-3 pt-1 pb-2">
+          <h1>Comments</h1>
+          <div>
+            <div class="row comment overflow-auto">
+              <div class="col-10">
+                <div class="row">
+                </div>
+                <div class=""  v-for="c in comments" :key="c.eventId">
+                  <p>{{ c.body }}</p>
+                  <button class="mb-2" @click="removeComment()">Delete Comment</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
-  </div>
 </template>
 
 
@@ -123,7 +129,7 @@ watchEffect(() => {
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
       isTicketHolder: computed(() => {
-        return AppState.eventTickets.find(t => t.accountId == AppState.account)
+        return AppState.eventTickets.find(t => t.accountId == AppState.account.id)
       }),
 
     async attendTowerEvent() {
@@ -193,8 +199,23 @@ watchEffect(() => {
 
 <style lang="scss" scoped>
 .ticket-img {
-  height: 10vh;
-  width: 10vh;
+  height: 5vh;
+  width: 5vh;
 
+}
+
+.comment-box {
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+max-width: 40vh;
+}
+
+.comment {
+  max-height: 41vh;
+  scrollbar-color: rebeccapurple green;
 }
 </style>
