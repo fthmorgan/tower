@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div v-if="towerEvent" class="col-md-3 pt-3">
+      <div v-if="towerEvent" class="col-10 pt-3">
         <div>
           <img :src="towerEvent.coverImg" class="img-fluid">
         </div>
-        <div class="bg-danger">
+        <div class="bg-danger text-center">
           <h1 v-if="towerEvent.isCanceled == true">{{ towerEvent.name }} is Canceled</h1>
         </div>
         <div>

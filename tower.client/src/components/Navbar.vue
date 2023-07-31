@@ -15,7 +15,7 @@
       </ul>
 
 <button type="button" data-bs-toggle="modal"
-            data-bs-target="#createEventModal">New Event</button>
+            data-bs-target="#createEventModal" v-if="account.id">New Event</button>
 
       <!-- LOGIN COMPONENT HERE -->
       <Login class="m-5" />
@@ -24,10 +24,14 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import Login from './Login.vue';
+import { AppState } from "../AppState.js";
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account),
+    }
   },
   components: { Login }
 }
